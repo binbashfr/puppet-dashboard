@@ -1,0 +1,18 @@
+Listen 3000
+<VirtualHost *:3000>
+        ServerName dashboard.domaine
+
+        ErrorLog /var/log/apache2/dashboard_error.log
+        LogLevel warn
+        SetEnvIf Remote_Addr "::1" dontlog
+        CustomLog /var/log/apache2/dashboard_access.log combined env=!dontlog
+
+        RackAutoDetect On
+        DocumentRoot /usr/share/puppet-dashboard/public
+        <Directory /usr/share/puppet-dashboard/public>
+                Options None
+                AllowOverride AuthConfig
+                Order allow,deny
+                allow from all
+        </Directory>
+</VirtualHost>
